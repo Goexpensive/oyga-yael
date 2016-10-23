@@ -1,4 +1,4 @@
-<?php 
+<?php
 // [featured_box]
 function featured_box($atts, $content = null) {
   global $flatsome_opt;
@@ -6,57 +6,71 @@ function featured_box($atts, $content = null) {
   extract(shortcode_atts(array(
     'title' => '',
     'title_small' => '',
-    'animated' => '',
     'font_size' => '',
-    'bg' => '',
     'img'  => '',
-    'img_width' => '',
-    'pos' => '',
+    'inline_svg' => 'true',
+    'img_width' => '60',
+    'pos' => 'top',
     'link' => '',
     'tooltip' => '',
-    'icon_border' => '0',
-    'icon_color' => $flatsome_opt['color_primary'],
-    'icon' => '',
+    'margin' => '',
+    'icon_border' => '',
+    'icon_color' => '',
   ), $atts));
   ob_start();
 
-  if($font_size) $font_size = 'font-size:'.$font_size;
+  $classes = array('featured-box');
+  $classes_img = array('icon-box-img');
+  
+  $classes[] = 'icon-box-'.$pos;
+  if($tooltip) $classes[] = 'tooltip';
+  if($pos == 'center') $classes[] = 'text-center';
+  if($pos == 'left' || $pos == 'top') $classes[] = 'text-left';
+  if($pos == 'right') $classes[] = 'text-right';
+  if($font_size) $classes[] = 'is-'.$font_size;
+  if($img_width) $img_width = 'width: '.intval($img_width).'px';
+
+  if($icon_border) $classes_img[] = 'has-icon-bg';
+
+  $css_args_out = array(
+    'margin' => array(
+        'attribute' => 'margin',
+        'unit' => 'px',
+        'value' => $margin,
+    ),
+  );
+
+  $css_args = array(
+    'icon_border' => array(
+        'attribute' => 'border-width',
+        'unit' => 'px',
+        'value' => $icon_border,
+    ),
+    'icon_color' => array(
+      'attribute' => 'color',
+      'value' => $icon_color,
+    ),
+  );
+
+  $classes = implode(" ", $classes);
+  $classes_img = implode(" ", $classes_img);
   ?>
-
-  <div class="featured-box  <?php if($pos) echo 'pos-'.$pos; ?>  <?php if($tooltip){echo 'tip-top';} ?>" title="<?php echo $tooltip; ?>"  style="<?php if($pos == "left" && $img_width) echo 'padding-left:'.($img_width+15).'px;'; ?><?php echo $font_size; ?>">
-  <div class="box-inner">
-  <?php if($link) { echo '<a href="'.$link.'">'; } ?>
-  <?php if($img) {
-   ?><div  class="featured-img <?php if($animated){echo 'scroll-animate';} ?> <?php if($icon_border){ ?>featured-img-circle <?php } ?>" <?php if($animated) echo 'data-animate="'.$animated.'"'; ?> style="<?php if($img_width){?>width:<?php echo $img_width; ?>;max-height:<?php echo $img_width; ?>;<?php } ?> <?php if($icon_border){?>border-width:<?php echo $icon_border; ?>; border-color:<?php echo $icon_color; ?><?php }?>"><?php 
-
-  if (strpos($img,'.jpg') !== false || strpos($img,'.gif') !== false || strpos($img,'.png') !== false) {
-          $img = $img;
-  } else{
-     $img = wp_get_attachment_image_src($img, 'medium');
-     $img = $img[0];
-  } 
-
-  if(strpos($img,'.svg') !== false) {
-    $svg = new SimpleXMLElement( wp_remote_fopen($img));
-      $padding = "0";
-      if($icon_border) $padding = ($img_width*0.2);
-      echo '<svg viewBox="0 0 32 32" style="width:100%; fill:'.$icon_color.'; padding:'.$padding.'px"';
-      echo '<g id="'.$svg->g->attributes()->id.'"><line stroke-width="1" x1="" y1="" x2="" y2="" opacity=""></line></g>';
-      echo '<path d="'.$svg->path->attributes()->d.'"></path>';
-      echo '</svg>';
-  }
-  else {
-        ?><img src="<?php echo  $img; ?>" alt="<?php echo $title; ?>" style="width:100%;"><?php
-  }
-  echo '</div><!-- end icon -->';
-  } ?>
-  <?php if($link) { echo '</a>'; } ?>
-  <?php if($link) { echo '<a href="'.$link.'">'; } ?>
-    <h4><?php echo $title; ?> <span><?php echo $title_small; ?> </span></h4>
-    <?php if($link) { echo '</a>'; } ?>
-    <?php echo fixShortcode($content); ?>
-  </div>
-  </div>
+  <div class="icon-box <?php echo $classes; ?>" <?php if($tooltip) echo 'title="'.$tooltip.'"'?> <?php echo get_shortcode_inline_css($css_args_out);?>>
+        <?php if($img) { ?>
+        <div class="<?php echo $classes_img; ?>" style="<?php if($img_width) echo $img_width; ?>">
+          <div class="icon">
+            <div class="icon-inner" <?php echo get_shortcode_inline_css($css_args);?>>
+              <?php echo flatsome_get_image($img, $size = 'medium', $alt = $title, $inline_svg) ;?>
+             </div>
+          </div>
+        </div>
+        <?php } ?>
+        <div class="icon-box-text last-reset">
+            <?php if($title){ ?><h5 class="uppercase"><?php echo $title; ?></h5><?php } ?>
+            <?php if($title_small){ ?><h6><?php echo $title_small; ?></h6><?php } ?>
+            <?php echo flatsome_contentfix($content); ?>
+        </div>
+  </div><!-- .icon-box -->
 
   <?php
   $content = ob_get_contents();

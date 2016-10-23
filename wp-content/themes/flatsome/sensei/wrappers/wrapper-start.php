@@ -9,6 +9,6 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-echo '<div class="sensei-page" style="padding-top:30px;"><div class="row"><div class="large-12 columns">';
+echo '<div class="sensei-page page-wrapper"><div class="row"><div class="large-12 col">';
 
 ?>

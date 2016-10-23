@@ -4,7 +4,7 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.3.0
+ * @version     2.6.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,22 +14,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $post, $product, $woocommerce;
 
 $attachment_ids = $product->get_gallery_attachment_ids();
+$thumb_count = count($attachment_ids)+1;
+
+// Disable thumbnails if there is only one extra image.
+if($thumb_count == 1) return;
+
+$rtl = 'false';
+
+if(is_rtl()) $rtl = 'true';
+
+$thumb_cell_align = "left";
 
 if ( $attachment_ids ) {
 	$loop 		= 0;
 	$columns 	= apply_filters( 'woocommerce_product_thumbnails_columns', 4 );
 
-	$arrows = '';
-	$thumb_count = count($attachment_ids)+1;
-
+	$gallery_class = array('product-thumbnails','thumbnails');
+	
 	if($thumb_count <= 5){
-		$arrows = 'slider-no-arrows';
+		$gallery_class[] = 'slider-no-arrows';
 	}
-
+	
+	$gallery_class[] = 'slider row row-small row-slider slider-nav-small small-columns-4';
 	?>
-	<ul class="product-thumbnails <?php echo $arrows; ?> thumbnails js-flickity slider-nav-small"
+
+	<div class="<?php echo implode(' ', $gallery_class); ?>"
 		data-flickity-options='{ 
-	            "cellAlign": "left",
+	            "cellAlign": "<?php echo $thumb_cell_align;?>",
 	            "wrapAround": false,
 	            "autoPlay": false,
 	            "prevNextButtons":true,
@@ -37,40 +48,33 @@ if ( $attachment_ids ) {
 	            "percentPosition": true,
 	            "imagesLoaded": true,
 	            "pageDots": false,
-	            "selectedAttraction" : 0.1,
-	            "friction": 0.6,
-	            "rightToLeft": false,
+	            "rightToLeft": <?php echo $rtl; ?>,
 	            "contain": true
 	        }'
 		><?php
-		$image_link  = wp_get_attachment_url( get_post_thumbnail_id() );
+
+
 		if ( has_post_thumbnail() ) : ?>
-			<li class="is-nav-selected first"><a href="<?php echo $src[0] ?>"><?php echo get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_small_thumbnail_size', 'shop_thumbnail' ) ) ?></a></li>
+			<div class="col is-nav-selected first"><a><?php echo get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_small_thumbnail_size', 'shop_thumbnail' ) ) ?></a></div>
 		<?php endif;
 
 		foreach ( $attachment_ids as $attachment_id ) {
 
 			$classes = array( 'zoom' );
-
-			$image_link = wp_get_attachment_url( $attachment_id );
-
-			if ( ! $image_link )
-				continue;
-
 			$image_title 	= esc_attr( get_the_title( $attachment_id ) );
 			$image_caption 	= esc_attr( get_post_field( 'post_excerpt', $attachment_id ) );
+			$image_class = esc_attr( implode( ' ', $classes ) );
 
 			$image       = wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_small_thumbnail_size', 'shop_thumbnail' ), 0, $attr = array(
 				'title'	=> $image_title,
 				'alt'	=> $image_title
 				) );
 
-			$image_class = esc_attr( implode( ' ', $classes ) );
-
-			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<li><a  href="%s" class="%s" title="%s" data-rel="prettyPhoto[product-gallery]">%s</a></li>', $image_link, $image_class, $image_caption, $image ), $attachment_id, $post->ID, $image_class );
+			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<div class="col"><a class="%s" title="%s" >%s</a></div>', $image_class, $image_caption, $image ), $attachment_id, $post->ID, $image_class );
 
 			$loop++;
 		}
-	?></ul>
+	?>
+	</div><!-- .product-thumbnails -->
 	<?php
 } ?>

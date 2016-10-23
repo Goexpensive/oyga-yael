@@ -2,44 +2,50 @@
 /**
  * The template for displaying all pages.
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
- *
  * @package flatsome
  */
 
-get_header(); ?>
 
-<?php if( has_excerpt() ) { ?>
-<div class="page-header">
-	<?php the_excerpt(); ?>
-</div>
-<?php } ?>
-
-<div  class="page-wrapper">
-<div class="row">
-
+if(flatsome_option('pages_layout') != 'default') {
 	
-<div id="content" class="large-12 columns" role="main">
+	// Get default template from theme options.
+	echo get_template_part('page', flatsome_option('pages_layout'));
+	return;
 
-		<?php while ( have_posts() ) : the_post(); ?>
+} else {
 
-				<?php get_template_part( 'content', 'page' ); ?>
+get_header();
+do_action( 'flatsome_before_page' ); ?>
+<div id="content" class="content-area page-wrapper" role="main">
+	<div class="row row-main">
+		<div class="large-12 col">
+			<div class="col-inner">
+				
+				<?php if(get_theme_mod('default_title', 0)){ ?>
+				<header class="entry-header">
+					<h1 class="entry-title mb uppercase"><?php the_title(); ?></h1>
+				</header><!-- .entry-header -->
+				<?php } ?>
 
-				<?php
-					// If comments are open or we have at least one comment, load up the comment template
-					if ( comments_open() || '0' != get_comments_number() )
-						comments_template();
-				?>
+				<?php while ( have_posts() ) : the_post(); ?>
+					<?php do_action( 'flatsome_before_page_content' ); ?>
+					
+						<?php the_content(); ?>
 
-		<?php endwhile; // end of the loop. ?>
+						<?php if ( comments_open() || '0' != get_comments_number() ){
+							comments_template(); } ?>
 
-</div><!-- #content -->
+					<?php do_action( 'flatsome_after_page_content' ); ?>
+				<?php endwhile; // end of the loop. ?>
+			</div><!-- .col-inner -->
+		</div><!-- .large-12 -->
+	</div><!-- .row -->
+</div>
 
-</div><!-- .row -->
-</div><!-- .page-wrapper -->
+<?php
+do_action( 'flatsome_after_page' );
+get_footer();
 
+}
 
-<?php get_footer(); ?>
+?>

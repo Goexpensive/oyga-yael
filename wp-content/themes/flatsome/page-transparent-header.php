@@ -1,14 +1,10 @@
 <?php
 /*
-Template name: Full Width - Transparent header
+Template name: Page - Full Width - Transparent header
 */
 get_header(); ?>
 
-<?php if( has_excerpt() ) { ?>
-<div class="page-header">
-   <?php the_excerpt(); ?>
-</div>
-<?php } ?>
+<?php do_action( 'flatsome_before_page' ); ?>
 
 <div id="content" role="main">
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -17,4 +13,7 @@ get_header(); ?>
 			
 			<?php endwhile; // end of the loop. ?>
 </div>
+
+<?php do_action( 'flatsome_after_page' ); ?>
+
 <?php get_footer(); ?>

@@ -2,63 +2,82 @@
 /**
  * Related Products
  *
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product/related.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you (the theme developer).
+ * will need to copy the new files to your theme to maintain compatibility. We try to do this.
+ * as little as possible, but it does happen. When this occurs the version of the template file will.
+ * be bumped and the readme will list any important changes.
+ *
+ * @see 	    http://docs.woothemes.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
  * @version     1.6.4
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
-global $product, $woocommerce_loop, $flatsome_opt;
+global $product, $woocommerce_loop;
 
+// Repeater styles
+$type = flatsome_option('related_products');
+if($type == 'hidden') return;
 
-if(!isset($flatsome_opt['max_related_products'])) {$flatsome_opt['max_related_products'] = '12';}
+if ( empty( $product ) || ! $product->exists() ) {
+	return;
+}
 
-$related = $product->get_related($flatsome_opt['max_related_products']);
+if(flatsome_option('max_related_products')) $posts_per_page = flatsome_option('max_related_products');
 
-if ( sizeof( $related ) == 0 ) return;
+$related = $product->get_related( $posts_per_page );
 
-$args = apply_filters('woocommerce_related_products_args', array(
-	'post_type'				=> 'product',
-	'ignore_sticky_posts'	=> 1,
-	'no_found_rows' 		=> 1,
-	'orderby' 				=> $orderby,
-	'post__in' 				=> $related,
-	'post__not_in'			=> array($product->id)
+if ( sizeof( $related ) === 0 ) return;
+
+$args = apply_filters( 'woocommerce_related_products_args', array(
+	'post_type'            => 'product',
+	'ignore_sticky_posts'  => 1,
+	'no_found_rows'        => 1,
+	'posts_per_page'       => $posts_per_page,
+	'orderby'              => $orderby,
+	'post__in'             => $related,
+	'post__not_in'         => array( $product->id )
 ) );
 
 $products = new WP_Query( $args );
-if(!isset($flatsome_opt['related_products_pr_row'])) {$flatsome_opt['related_products_pr_row'] = '4';}
 
+if($type == 'grid') $type = 'row';
 
-if($flatsome_opt['related_products'] !== 'hidden' && $products->have_posts() ) : ?>
+// Disable slider if less than selected products pr row. 
+if ( sizeof( $related ) < (flatsome_option('related_products_pr_row')+1) ) {
+	$type = 'row';
+}
 
-<div class="related products">
-<h2><?php _e( 'Related Products', 'woocommerce' ); ?></h2>
-    <ul class="<?php if($flatsome_opt['related_products'] == 'slider') echo 'ux-row-slider slider-nav-push slider-nav-reveal js-flickity '; ?> 
-    	large-block-grid-<?php echo $flatsome_opt['related_products_pr_row']; ?> small-block-grid-2"
-			data-flickity-options='{ 
-	            "cellAlign": "left",
-	            "wrapAround": true,
-	            "autoPlay": false,
-	            "imagesLoaded": true,
-	            "prevNextButtons":true,
-	            "percentPosition": true,
-	            "pageDots": false,
-	            "rightToLeft": false,
-	            "contain": true
-	        }'
-    		>
+$repater['type'] = $type;
+$repater['columns'] = flatsome_option('related_products_pr_row');
+$repater['slider_style'] = 'reveal';
+$repater['row_spacing'] = 'small';
+
+if ( $products->have_posts() ) : ?>
+
+	<div class="related related-products-wrapper product-section">
+
+		<h3 class="product-section-title product-section-title-related pt-half pb-half uppercase"><?php _e( 'Related Products', 'woocommerce' ); ?></h3>
+
+			<?php echo get_flatsome_repeater_start($repater); ?>
+			
 			<?php while ( $products->have_posts() ) : $products->the_post(); ?>
-
-				<?php woocommerce_get_template_part( 'content', 'product' ); ?>
+			
+			<?php wc_get_template_part( 'content', 'product' ); ?>
 
 			<?php endwhile; // end of the loop. ?>
-    </ul>
-	
-</div><!-- Related products -->
 
-<?php
+			<?php echo get_flatsome_repeater_end($repater); ?>
+
+
+	</div><!-- .related-products-wrapper -->
+
+<?php endif;
 
 wp_reset_postdata();
-endif;

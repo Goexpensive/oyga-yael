@@ -26,24 +26,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php do_action( 'woocommerce_before_customer_login_form' ); ?>
 
+<div class="account-container lightbox-inner">
+
 <?php if ( get_option( 'woocommerce_enable_myaccount_registration' ) === 'yes' ) : ?>
 
-<div class="row" id="customer_login">
+<div class="col2-set row row-divided row-large" id="customer_login">
 
-	<div class="large-6 columns">
+<div class="col-1 large-6 col pb-0">
 
 <?php endif; ?>
+<div class="account-login-inner">
 
-		<h2><?php _e( 'Login', 'woocommerce' ); ?></h2>
+		<h3 class="uppercase"><?php _e( 'Login', 'woocommerce' ); ?></h3>
 
 		<form method="post" class="login">
 
 			<?php do_action( 'woocommerce_login_form_start' ); ?>
-
+			
 			<p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
 				<label for="username"><?php _e( 'Username or email address', 'woocommerce' ); ?> <span class="required">*</span></label>
 				<input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="username" id="username" value="<?php if ( ! empty( $_POST['username'] ) ) echo esc_attr( $_POST['username'] ); ?>" />
 			</p>
+			
 			<p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
 				<label for="password"><?php _e( 'Password', 'woocommerce' ); ?> <span class="required">*</span></label>
 				<input class="woocommerce-Input woocommerce-Input--text input-text" type="password" name="password" id="password" />
@@ -51,6 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php do_action( 'woocommerce_login_form' ); ?>
 
+			
 			<p class="form-row">
 				<?php wp_nonce_field( 'woocommerce-login' ); ?>
 				<input type="submit" class="woocommerce-Button button" name="login" value="<?php esc_attr_e( 'Login', 'woocommerce' ); ?>" />
@@ -65,20 +70,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php do_action( 'woocommerce_login_form_end' ); ?>
 
 		</form>
+</div><!-- .login-inner -->
 
 <?php if ( get_option( 'woocommerce_enable_myaccount_registration' ) === 'yes' ) : ?>
 
 	</div>
 
-	<div class="large-6 columns">
+	<div class="col-2 large-6 col pb-0">
 
-		<h2><?php _e( 'Register', 'woocommerce' ); ?></h2>
+	  <div class="account-register-inner">
+
+		<h3 class="uppercase"><?php _e( 'Register', 'woocommerce' ); ?></h3>
 
 		<form method="post" class="register">
 
 			<?php do_action( 'woocommerce_register_form_start' ); ?>
 
-			<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
+				<?php if ( 'no' === get_option( 'woocommerce_registration_generate_username' ) ) : ?>
 
 				<p class="woocommerce-FormRow woocommerce-FormRow--wide form-row form-row-wide">
 					<label for="reg_username"><?php _e( 'Username', 'woocommerce' ); ?> <span class="required">*</span></label>
@@ -116,9 +124,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		</form>
 
-	</div>
+	  </div>
 
-</div>
+	</div><!-- .large-6 -->
+
+</div> <!-- .row -->
 <?php endif; ?>
+
+</div><!-- .account-login-container -->
 
 <?php do_action( 'woocommerce_after_customer_login_form' ); ?>

@@ -1,44 +1,37 @@
 <?php
 /**
- * The template for displaying all pages.
+ * The template for displaying 404 pages (not found).
  *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
+ * @link https://codex.wordpress.org/Creating_an_Error_404_Page
  *
  * @package flatsome
  */
 
 get_header(); ?>
+	<?php do_action('flatsome_before_404') ;?>
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main container pt" role="main">
+			<section class="error-404 not-found mt mb">
+				<div class="row">
+					<div class="col medium-3"><span class="header-font" style="font-size: 6em; font-weight: bold; opacity: .3">404</span></div>
+					<div class="col medium-9">
+						<header class="page-title">
+							<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'flatsome' ); ?></h1>
+						</header><!-- .page-title -->
 
-<div  class="page-wrapper">
-<div class="row">
+						<div class="page-content">
+							<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'flatsome' ); ?></p>
 
-	
-<div id="content" class="large-12 left columns" role="main">
-		<article id="post-0" class="post error404 not-found">
-				<header class="entry-header">
-					<h1 class="entry-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'flatsome' ); ?></h1>
-				</header><!-- .entry-header -->
-				<div class="entry-content">
+							<?php get_search_form(); ?>
 
+						</div><!-- .page-content -->
+					</div>
+				</div><!-- .row -->
+				
+				
+			</section><!-- .error-404 -->
 
-		<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'flatsome' ); ?></p>
-
-					<?php get_search_form(); ?>
-
-								</div><!-- .entry-content -->
-			</article><!-- #post-0 .post .error404 .not-found -->
-
-
-</div><!-- end #content large-9 left -->
-
-</div><!-- end row -->
-</div><!-- end page-right-sidebar container -->
-
-
+		</main><!-- #main -->
+	</div><!-- #primary -->
+	<?php do_action('flatsome_after_404') ;?>
 <?php get_footer(); ?>
-
-
-	

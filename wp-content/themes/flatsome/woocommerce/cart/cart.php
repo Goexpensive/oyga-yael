@@ -24,8 +24,8 @@ wc_print_notices();
 do_action( 'woocommerce_before_cart' ); ?>
 <div class="woocommerce row">
 
-<form action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" class="columns large-8">
-<div class="cart-wrapper">
+<form action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" class="col col-divided large-8 pb-0">
+<div class="cart-wrapper sm-touch-scroll">
 <?php do_action( 'woocommerce_before_cart_table' ); ?>
 <table class="shop_table shop_table_responsive cart" cellspacing="0">
 	<thead>
@@ -131,7 +131,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 				
 				<?php do_action( 'woocommerce_cart_actions' ); ?>
 
-				<input type="submit" class="button left small" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'woocommerce' ); ?>" />
+				<input type="submit" class="button primary mt-0 pull-left small" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'woocommerce' ); ?>" />
 
 				<?php wp_nonce_field( 'woocommerce-cart' ); ?>
 			</td>
@@ -144,19 +144,20 @@ do_action( 'woocommerce_before_cart' ); ?>
 </div>
 </form>
 
-<div class="cart-collaterals large-4 columns">
+<div class="cart-collaterals large-4 col pb-0">
 	<div class="cart-sidebar">
 		<?php do_action( 'woocommerce_cart_collaterals' ); ?>
 		<?php if ( wc_coupons_enabled() ) { ?>
-		<form class="checkout_coupon" method="post">
+		<form class="checkout_coupon pt-half mb-0" method="post">
 			<div class="coupon">
-			<h3 class="widget-title"><?php _e( 'Coupon', 'woocommerce' ); ?></h3>
-				<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="button small expand" name="apply_coupon" value="<?php esc_attr_e( 'Apply Coupon', 'woocommerce' ); ?>" />
+			<h3 class="widget-title"><?php echo get_flatsome_icon('icon-tag'); ?> <?php _e( 'Coupon', 'woocommerce' ); ?></h3>
+				<input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="primary expand" name="apply_coupon" value="<?php esc_attr_e( 'Apply Coupon', 'woocommerce' ); ?>" />
 
 				<?php do_action( 'woocommerce_cart_coupon' ); ?>
 			</div>
 		</form>
 		<?php } ?>
+		<?php do_action( 'flatsome_cart_sidebar' ); ?>
 	</div>
 </div>
 </div>

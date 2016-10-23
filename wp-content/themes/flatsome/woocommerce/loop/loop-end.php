@@ -7,6 +7,4 @@
  * @version     2.0.0
  */
 ?>
-</ul>
-</div>
-</div><!-- .large-12 -->
+</div><!-- row -->

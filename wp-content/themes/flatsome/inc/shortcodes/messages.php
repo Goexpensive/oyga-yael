@@ -1,34 +1,39 @@
 <?php 
 // [message_box]
-function message_box($atts, $content = null) {
+function flatsome_message_box($atts, $content = null) {
 	extract(shortcode_atts(array(
-        'bg'  => '#333',
-        'text_color'  => 'light',
+        'bg'  => '',
+        'bg_color' => '',
+        'text_color'  => 'dark',
+        'padding' => '15',
 	), $atts));
 
-	$color = "light";
-  	if($text_color == 'light') $color = "dark";
+  $classes = array('message-box','relative');
 
-	$background = "";
-   $background_color = "";
-    if (strpos($bg,'//') !== false) {
-      $background = $bg;
-    }
-    elseif (strpos($bg,'#') !== false) {
-      $background_color = 'background-color:'.$bg.'!important';
-    }
-     else {
-      $bg = wp_get_attachment_image_src($bg, 'large');
-      $background = $bg[0];
-    }
+  if($bg) {
+    $bg = flatsome_get_image_url($bg);
+  }
 
 
-	$content = fixShortcode($content);
+  if($text_color == 'dark') $classes[] = 'dark';
+
+  $css_args = array(
+      array( 'attribute' => 'padding-top', 'value' => $padding, 'unit' => 'px'),
+      array( 'attribute' => 'padding-bottom', 'value' => $padding, 'unit' => 'px'),
+   );
+   $css_bg = array();
+   if($bg) {
+        $css_bg = array(
+            array( 'attribute' => 'background-image', 'value' => 'url('.$bg.')'),
+        );
+    }
+   $css_bg_overlay = array(
+      array( 'attribute' => 'background-color', 'value' => $bg_color ),
+   );
 	
-	return '<div class="message-box '.$color.'" style="background-image:url('.$background.');' .$background_color.'"><div class="row"><div class="large-12 columns"><div class="inner">'.$content.'</div></div></div></div><!-- .message-box -->';
+	return '<div class="'.implode(' ', $classes).'" '.get_shortcode_inline_css($css_args).'><div class="message-box-bg-image bg-fill fill" '.get_shortcode_inline_css($css_bg).'></div><div class="message-box-bg-overlay bg-fill fill" '.get_shortcode_inline_css($css_bg_overlay).'></div><div class="container relative"><div class="inner last-reset">'.do_shortcode($content).'</div></div></div>';
 }
 
-
-add_shortcode("message_box", "message_box");
+add_shortcode("message_box", "flatsome_message_box");
 
 

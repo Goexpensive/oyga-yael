@@ -2,26 +2,42 @@
 // [title]
 function title_shortcode( $atts, $content = null ){
   extract( shortcode_atts( array(
+    '_id' => 'title-'.rand(),
     'text' => '',
-    'style' => '',
+    'sub_text' => '',
+    'style' => 'normal',
+    'size' => '100',
     'link' => '',
     'link_text' => '',
-    'target' => ''
+    'target' => '',
+    'margin_top' => '',
+    'margin_bottom' => '',
+    'icon' => '',
   ), $atts ) );
 
-$link_output = '';
-$style_output ='';
-if($style) $style_output = 'title_'.$style;
-if($link) $link_output = '<a href="'.$link.'" target="'.$target.'">'.$link_text.'</a>';
-$after_title = '';
-$align = '';
+  if(!$text && !$link_text) return;
 
-if($style == 'divided'){ 
-  $after_title = '<div class="tx-div medium"></div>'; 
-  $align = 'text-center';
-}
+  $link_output = '';
+  if($link) $link_output = '<a href="'.$link.'" target="'.$target.'">'.$link_text.get_flatsome_icon('icon-angle-right').'</a>';
 
-return '<h3 class="section-title clearfix '.$style_output.' '.$align.'"><span>'.$text.'</span> '.$link_output.' '.$after_title.'</h3><!-- end section_title -->';
+  $small_text = '';
+  if($sub_text) $small_text = '<small class="sub-title">'.$atts['sub_text'].'</small>';
+
+  if($icon) $icon = get_flatsome_icon($icon);
+
+  // fix old
+  if($style == 'bold_center') $style = 'bold-center';
+
+  $css_args = array(
+   array( 'attribute' => 'margin-top', 'value' => $margin_top),
+   array( 'attribute' => 'margin-bottom', 'value' => $margin_bottom),
+  );
+
+  $css_args_title = array(
+   array( 'attribute' => 'font-size', 'value' => $size, 'unit' => '%'),
+  );
+
+  return '<div class="container section-title-container" '.get_shortcode_inline_css($css_args).'><h3 class="section-title section-title-'.$style.'"><b></b><span class="section-title-main" '.get_shortcode_inline_css($css_args_title).'>'.$icon.$atts['text'].$small_text.'</span><b></b>'.$link_output.'</h3></div><!-- .section-title -->';
 
 }
 add_shortcode('title', 'title_shortcode');
@@ -30,32 +46,37 @@ add_shortcode('title', 'title_shortcode');
 // [divider]
 function divider_shortcode( $atts, $content = null ){
   extract( shortcode_atts( array(
-    'width' => 'small',
+    'width' => '',
     'height' => '',
-    'align' => 'left', 
+    'margin' => '',
+    'align' => '',
+    'color' => '',
   ), $atts ) );
-
-if($height) $height = 'style="height:'.$height.'"';
 
 $align_end ='';
 $align_start = '';
-if($align == 'center'){
+
+
+// Fallback
+if($width == 'full') $width = '100%';
+
+$css_args = array(
+  array( 'attribute' => 'margin-top', 'value' => $margin),
+  array( 'attribute' => 'margin-bottom', 'value' => $margin),
+  array( 'attribute' => 'width', 'value' => $width ),
+  array( 'attribute' => 'height', 'value' => $height ),
+  array( 'attribute' => 'background-color', 'value' => $color ),
+);
+
+if($align === 'center'){
   $align_start ='<div class="text-center">';
   $align_end = '</div>';
 }
-
-return $align_start.'<div class="tx-div '.$width.' clearfix" '.$height.'></div>'.$align_end.'<!-- end divider -->';
+if($align === 'right'){
+  $align_start ='<div class="text-right">';
+  $align_end = '</div>';
+}
+return $align_start.'<div class="is-divider divider clearfix" '.get_shortcode_inline_css($css_args).'></div>'.$align_end.'<!-- .divider -->';
 
 }
 add_shortcode('divider', 'divider_shortcode');
-
-// [gap]
-function ux_gap_shortcode( $atts, $content = null ){
-  extract( shortcode_atts( array(
-    'height' => '30px',
-  ), $atts ) );
-
-return '<div style="display:block;height:'.$height.'" class="clearfix"></div>';
-
-}
-add_shortcode('gap', 'ux_gap_shortcode');

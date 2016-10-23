@@ -1,57 +1,88 @@
 <?php
 /**
- * Flatsome Engine Room. 
+ * Flatsome Engine Room.
  * This is where all Theme Functions runs.
  *
  * @package flatsome
  */
 
 
-/**
- * Options Panel.
- */
-require get_template_directory() . '/inc/admin/index.php';
+// Add Flatsome Option Class
+require get_template_directory() . '/inc/classes/class-flatsome-options.php';
 
 /**
  * Setup.
  * Enqueue styles, register widget regions, etc.
  */
-require get_template_directory() . '/inc/functions/global.php';
-require get_template_directory() . '/inc/functions/setup.php';
-require get_template_directory() . '/inc/functions/inc-plugins.php';
-require get_template_directory() . '/inc/functions/google-fonts.php';
-require get_template_directory() . '/inc/functions/custom-css.php';
+require get_template_directory() . '/inc/functions/function-global.php';
+require get_template_directory() . '/inc/functions/function-upgrade.php';
+require get_template_directory() . '/inc/functions/function-defaults.php';
+require get_template_directory() . '/inc/functions/function-setup.php';
+require get_template_directory() . '/inc/functions/function-theme-mods.php';
+require get_template_directory() . '/inc/functions/function-plugins.php';
+require get_template_directory() . '/inc/functions/function-custom-css.php';
+require get_template_directory() . '/inc/functions/function-maintenance.php';
+require get_template_directory() . '/inc/functions/function-fallbacks.php';
+
+if(get_theme_mod('lazy_load_google_fonts',1)){
+  require get_template_directory() . '/inc/functions/function-fonts.php';
+} else{
+  require get_template_directory() . '/inc/functions/function-fonts-old.php';
+}
+
+$is_admin = is_admin();
+$is_woocommerce = is_woocommerce_activated();
+$has_portfolio = get_theme_mod('fl_portfolio', 1);
+
+if(is_admin_bar_showing() && current_user_can('manage_options')){
+  require get_template_directory() . '/inc/functions/function-update.php';
+}
+
+// Get Presets for Theme Options and Demos
+require get_template_directory() . '/inc/functions/function-presets.php';
 
 /**
- * Helpers.
+ * Helper functions
  */
-
-if(is_admin()) {
-  require get_template_directory() . '/inc/helpers/admin.php';
-}
-require get_template_directory() . '/inc/helpers/frontend.php';
-require get_template_directory() . '/inc/helpers/global.php';
-require get_template_directory() . '/inc/helpers/wpml.php';
-
+require get_template_directory() . '/inc/helpers/helpers-frontend.php';
+require get_template_directory() . '/inc/helpers/helpers-shortcode.php';
+require get_template_directory() . '/inc/helpers/helpers-grid.php';
+require get_template_directory() . '/inc/helpers/helpers-icons.php';
 
 /**
  * Structure.
  * Template functions used throughout the theme.
  */
-require get_template_directory() . '/inc/structure/global.php';
-require get_template_directory() . '/inc/structure/header.php';
-require get_template_directory() . '/inc/structure/posts.php';
+if(!$is_admin){
+  require get_template_directory() . '/inc/structure/structure-footer.php';
+  require get_template_directory() . '/inc/structure/structure-header.php';
+  require get_template_directory() . '/inc/structure/structure-pages.php';
+  require get_template_directory() . '/inc/structure/structure-posts.php';
+  require get_template_directory() . '/inc/structure/structure-sidebars.php';
+  
+  if($has_portfolio){
+      require get_template_directory() . '/inc/structure/structure-portfolio.php';
+  }
+}
+
+if($is_admin){
+  require get_template_directory() . '/inc/structure/structure-admin.php';
+}
 
 /**
  * Flatsome Shortcodes.
  */
-require get_template_directory() . '/inc/shortcodes/grid.php';
-require get_template_directory() . '/inc/shortcodes/banners.php';
-require get_template_directory() . '/inc/shortcodes/slider.php';
-require get_template_directory() . '/inc/shortcodes/banner_grid.php';
+require get_template_directory() . '/inc/shortcodes/row.php';
+require get_template_directory() . '/inc/shortcodes/text_box.php';
+require get_template_directory() . '/inc/shortcodes/sections.php';
+require get_template_directory() . '/inc/shortcodes/ux_slider.php';
+require get_template_directory() . '/inc/shortcodes/ux_banner.php';
+require get_template_directory() . '/inc/shortcodes/ux_banner_grid.php';
 require get_template_directory() . '/inc/shortcodes/accordion.php';
 require get_template_directory() . '/inc/shortcodes/tabs.php';
+require get_template_directory() . '/inc/shortcodes/gap.php';
 require get_template_directory() . '/inc/shortcodes/featured_box.php';
+require get_template_directory() . '/inc/shortcodes/ux_sidebar.php';
 require get_template_directory() . '/inc/shortcodes/buttons.php';
 require get_template_directory() . '/inc/shortcodes/share_follow.php';
 require get_template_directory() . '/inc/shortcodes/elements.php';
@@ -63,72 +94,103 @@ require get_template_directory() . '/inc/shortcodes/testimonials.php';
 require get_template_directory() . '/inc/shortcodes/team_members.php';
 require get_template_directory() . '/inc/shortcodes/messages.php';
 require get_template_directory() . '/inc/shortcodes/search.php';
-require get_template_directory() . '/inc/shortcodes/featured_items.php';
-require get_template_directory() . '/inc/shortcodes/countdown/flatsome-countdown.php';
+require get_template_directory() . '/inc/shortcodes/ux_logo.php';
+require get_template_directory() . '/inc/shortcodes/ux_image.php';
+require get_template_directory() . '/inc/shortcodes/ux_image_box.php';
+require get_template_directory() . '/inc/shortcodes/price_table.php';
+require get_template_directory() . '/inc/shortcodes/scroll_to.php';
+require get_template_directory() . '/inc/shortcodes/ux_pages.php';
+require get_template_directory() . '/inc/shortcodes/ux_gallery.php';
+require get_template_directory() . '/inc/shortcodes/ux_hotspot.php';
+require get_template_directory() . '/inc/shortcodes/page_title.php';
+require get_template_directory() . '/inc/shortcodes/page_meta.php';
+require get_template_directory() . '/inc/shortcodes/ux_instagram_feed.php';
+require get_template_directory() . '/inc/shortcodes/ux_countdown/ux-countdown.php';
+require get_template_directory() . '/inc/shortcodes/ux_video.php';
+require get_template_directory() . '/inc/shortcodes/ux_payment_icons.php';
 
-if (ux_is_woocommerce_active()) {
-  require get_template_directory() . '/inc/shortcodes/products.php';
+if($has_portfolio){
+  require get_template_directory() . '/inc/shortcodes/portfolio.php';
+}
+
+if ($is_woocommerce) {
+  require get_template_directory() . '/inc/shortcodes/ux_products.php';
   require get_template_directory() . '/inc/shortcodes/product_flip.php';
   require get_template_directory() . '/inc/shortcodes/product_categories.php';
 }
 
 
 /**
- * Extensions
+ * Load WooCommerce Custom Fields
  */
-if(is_admin()){
-    require get_template_directory() . '/inc/extensions/ux-shortcode-inserter/tinymce.php';
-    if($flatsome_opt['flatsome_builder'] && !defined( 'WPB_VC_VERSION' )){
-        require get_template_directory() . '/inc/extensions/ux-builder/flatsome-builder.php';
-    }
-}
-
-
-/**
- * Welcome screen (Coming Soon)
- */
-if ( is_admin() ) {
-  //require get_template_directory() . '/inc/admin/welcome-screen/welcome-screen.php';
-}
-
-/**
- * Support screen (Coming Soon)
- */
-if(is_admin_bar_showing() && current_user_can('manage_options')) {
-  require get_template_directory() . '/inc/helpers/support.php';
+if ($is_woocommerce) {
+  require get_template_directory() . '/inc/classes/class-wc-product-data-fields.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-product-page-fields.php';
 }
 
 /**
  * Load WooCommerce functions
  */
-if (ux_is_woocommerce_active()) {
-  require get_template_directory() . '/inc/classes/class-wc-product-data-fields.php';
-  require get_template_directory() . '/inc/woocommerce/template-tags-global.php';
-  require get_template_directory() . '/inc/woocommerce/template-tags-product-page.php';
-  require get_template_directory() . '/inc/woocommerce/template-tags-categories.php';
-  require get_template_directory() . '/inc/woocommerce/template-tags-checkout.php';
-  require get_template_directory() . '/inc/woocommerce/wc-helpers.php';
-  require get_template_directory() . '/inc/woocommerce/wc-custom-fields.php';
-  require get_template_directory() . '/inc/woocommerce/wc-integrations.php';
-
-  if(is_admin()){
-      require get_template_directory() . '/inc/woocommerce/wc-admin.php';
-  }
+if ( $is_woocommerce ) {
+  require get_template_directory() . '/inc/woocommerce/structure-wc-global.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-category-page.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-category-page-header.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-product-box.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-helpers.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-custom.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-headers.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-checkout.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-cart.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-product-page.php';
+  require get_template_directory() . '/inc/woocommerce/structure-wc-product-page-header.php';
+  if(get_theme_mod('catalog_mode')) require get_template_directory() . '/inc/woocommerce/structure-wc-catalog-mode.php';
 }
 
 
 /**
- * Custom Theme Widgets
+ * Flatsome Theme Widgets
  */
-require get_template_directory() . '/inc/widgets/recent-posts.php'; // Load Widget Recent Posts
-
-if(ux_is_woocommerce_active()){
-    require get_template_directory() . '/inc/widgets/upsell-widget.php'; // Load Upsell widget
-}
+require get_template_directory() . '/inc/widgets/widget-recent-posts.php';
+require get_template_directory() . '/inc/widgets/widget-blocks.php';
+if ($is_woocommerce ) { require get_template_directory() . '/inc/widgets/widget-upsell.php'; } 
 
 
 /**
  * Custom Theme Post Types (TODO: Make as plugins)
  */
-require get_template_directory() . '/inc/post-types/ux-blocks.php';
-require get_template_directory() . '/inc/post-types/ux-featured-items.php';
+require get_template_directory() . '/inc/post-types/post-type-ux-blocks.php';
+
+if($has_portfolio){
+  require get_template_directory() . '/inc/post-types/post-type-ux-portfolio.php';
+}
+
+
+/**
+ * Theme Integrations
+ */
+
+require get_template_directory() . '/inc/integrations/integrations.php';
+
+
+/**
+ * Theme Extenstions
+ */
+require get_template_directory() . '/inc/extensions/extensions.php';
+
+
+/**
+ * Theme Panel
+ */
+require get_template_directory() . '/inc/admin/panel/panel.php';
+
+/**
+ * Theme Admin
+ */
+if(current_user_can( 'manage_options')){
+  require get_template_directory() . '/inc/admin/admin-init.php';
+}
+
+/**
+ * UX Builder
+ */
+require get_template_directory() . '/inc/builder/builder.php';

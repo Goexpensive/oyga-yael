@@ -1,3 +1,571 @@
+--- 3.1.6 ---
+FIXED: Bugs with grids and images in IE versions.
+FIXED: Problems changing product variations on some iOS versions.
+FIXED: Bugs with Visual Composer and .row classes.
+FIXED: Customizer now requires less memory.
+FIXED: Improved security in UX Builder.
+FIXED: Bugs with Countdown styling.
+FIXED: Bugs with Portfolio list.
+FIXED: Better compatibility with WP Rocket.
+FIXED: Various mobile styling issues.
+FIXED: Option to disable Flatsome 2.0 content fallback. (Better speed). Disable in Advanced > Global Settings.
+
+--- 3.1.5 ---
+UX BUILDER: Changed style on discard and apply button to prevent confusion with save.
+UX BUILDER: Improved Media upload options.
+UX BUILDER: Option to Copy and Paste styles from an element to an other.
+UX BUILDER: Improved speed.
+
+FIXED: Saving Advanced options sometimes did not work.
+FIXED: Improved live search. You can now also use the live search without WooCommerce.
+FIXED: Possible to scroll product pages if zoom was enabled.
+FIXED: Better styling of mobile off-canvas sidebar for product page.
+FIXED: Possible to select category on Portfolio element.
+FIXED: Product Zoom if only one image.
+FIXED: Thank you script was rendered wrong.
+FIXED: Google share wishlist icon.
+FIXED: H1 Headlines added to default page template. (Disable in Theme Options > Pages)
+FIXED: Problems with Ultimate Member plugin.
+FIXED: Various CSS bugs.
+
+NEW: YouTube added to Team member.
+NEW: New hooks - flatsome_before_breadcrumb, flatsome_after_breadcrumb.
+
+--- 3.1.4.1 ---
+FIXED: Bugs when saving Theme Options.
+FIXED: More speed improvements.
+
+--- 3.1.4 ---
+FIXED: Lazy loading on IE10/IE11.
+FIXED: Custom CSS Theme Options went missing in Chrome when making changes or change screen mode.
+FIXED: Image position bug.
+FIXED: Speed improvements.
+
+--- 3.1.3 ---
+FIXED: Titles went missing.
+FIXED: Google fonts sometimes was not loading.
+FIXED: Bugs with ampersand (&) in Button links.
+FIXED: Filters and breadcrumbs if Shop page has custom header.
+FIXED: Builder filters for fixing old content was missing.
+FIXED: Menu labels now works without WooCommerce plugin.
+FIXED: Some strings added to translations. (Click Sync in Loco translate).
+FIXED: Custom content before and after products added back.
+FIXED: Gallery now shows correct ordering.
+FIXED: Various CSS problems.
+
+NEW: French translation added.
+NEW: Option to add divider to a column element (For creating sidebar columns etc).
+
+--- 3.1 ---
+NEW: Option to change mobile logo position (Left or Centered).
+NEW: Option to change spacing between header menu elements.
+NEW: Option to replace newsletter popup with a block.
+NEW: Widget Area (Sidebars) added to UX Builder.
+NEW: Better UberMenu support. Add full width UberMenu option.
+NEW: Spanish and Danish languages added.
+NEW: Option to enable / disable lazy loading of Google fonts.
+
+Changed: Advanced > Optimization is now called "Lazy loading".
+
+FIXED: Target now works on Buttons.
+FIXED: Changing variation images sometimes did not work.
+FIXED: Possible to add class to grid columns.
+FIXED: Improved Mobile Cart layout.
+FIXED: Wishlist icon for iPad horizontal.
+FIXED: Various CSS layout bugs.
+FIXED: Rotate Text box now works.
+FIXED: Follow icons in footer.
+
+
+--- 3.0.30 ---
+NEW: Single Page Navigation templates (Use together with Scroll To Shortcode).
+NEW: Option to remove Portfolio completely.
+NEW: Search documentation live from Flatsome > Help & Guides.
+NEW: Option to remove purchase code (Just remove code and click update).
+NEW: Option to set Column background colors from Row element.
+NEW: Option to set Lowercase on buttons.
+NEW: Option to expand buttons.
+NEW: Option to set base font size for desktop and mobile.
+
+FIXED: Compatibility with YITH Infinitive scroll.
+FIXED: Custom Ids for portfolio element now works.
+FIXED: Possible to edit Portfolio and Product pages with UX Builder added back.
+FIXED: Option to disable bullets for Scroll To shortcode.
+FIXED: Possible to add comments to pages.
+FIXED: Possible to link to Tabs with http:/link.com/#tab-title-id
+FIXED: LinkedIn was missing from Follow icons options.
+FIXED: Custom Mobile menu now works.
+FIXED: Improved security some places.
+FIXED: Global border radius for some buttons did not work.
+FIXED: Possible to remove elements from wishlist.
+FIXED: Various bugs.
+
+
+--- 3.0.29 ---
+FIXED: Possible to disable post and pages in search results.
+FIXED: Option to disable live search.
+FIXED: Theme now requires less memory.
+FIXED: Possible to translate "Zoom".
+FIXED: Tabbed content on safari.
+FIXED: Bugs with empty background images.
+FIXED: Various IE10 & IE11 bugs.
+FIXED: Add to cart button now gets checkout color.
+FIXED: Various UX Builder improvements.
+FIXED: Shortcodes allowed in Footer Right text.
+FIXED: Wishlist icon for mobile.
+FIXED: Coupon layout on mobile.
+FIXED: Zoom correct image on product variations.
+FIXED: Targets for Image and Logo element.
+FIXED: Force first position on mobile.
+FIXED: Global disable reviews
+Changed: "Post and pages" search results moved to bottom.
+
+--- 3.0.28 ---
+FIXED: Render the secondary footer only if it has any content.
+FIXED: Google Maps in UX Builder on SSL.
+FIXED: Google Maps content width did not work.
+FIXED: Bugs with saving images in customizer.
+FIXED: Added Sensei page wrappers.
+FIXED: Footer content on category pages was missing.
+
+--- 3.0.27 ---
+FIXED: Dropdowns on iPad.
+FIXED: Scroll arrows on mobile row sliders.
+FIXED: Various CSS bugs.
+
+--- 3.0.26 ---
+NEW: Custom CSS also added to Advanced.
+NEW: Option to set preset upon installation.
+
+--- 3.0.25 ---
+FIXED: WPML logo.
+FIXED: Infinitive page reloading.
+FIXED: Checkout design improvements.
+FIXED: 500px icon in header.
+FIXED: Updated demo content.
+FIXED: Old content wrapped in [row] was hidden.
+
+--- 3.0 (06.09.16) ---
+NEW: Created our own minimal Flatsome CSS Framework.
+NEW: Completely re-written theme. Over 50% smaller CSS file, but tons of new features.
+NEW: New incredible Front-End Page Builder. (UX Page Builder).
+NEW: New Option Panel using Customizer. Preview changes live.
+NEW: Live Drag and Drop Header Builder.
+NEW: Change sticky header for Header Top, Header Main or Header bottom.
+NEW: Show header Cart in Off-Canvas or Dropdown.
+NEW: Open Header Login in a Lightbox for quick login.
+NEW: New Header element: Contact. Add Email and Phone number to header easily.
+NEW: Added Category dropdown to Search Box.
+NEW: Built-in Live Search (You can disable YITH Live search if you want).
+NEW: New Search Box Styles. / Outline
+NEW: Add Icons to buttons that can be visible all the time or reveal on hover.
+NEW: Option to set custom Transparent Header Height and Mobile Header Height.
+NEW: Option to set custom Transparent Header background color.
+NEW: Add drop shadow to Columns, Buttons and Images.
+NEW: Possible to add slogan under logo.
+NEW: Option to change global site width.
+NEW: Section Dividers. (Arrow, Angled and Fade Out).
+NEW: Added 'Scroll for more'-arrow option for Sliders, Banners and Sections.
+NEW: Shrink and fade sticky style.
+NEW: Built in Language dropdown for WPML and Polylang.
+NEW: Change position of Product Up-sells (Sidebar, Below description, disabled)
+NEW: Options to Have full Width / Container header.
+NEW: Option to set Up-sells in sidebar or below description.
+NEW: New ways to display Account and Cart in header.
+NEW: Make Account or search visible for mobile view.
+NEW: Option to add Thumbnails to Blog Post Widget.
+NEW: New Page Template. Show header on scroll.
+NEW: Option to always show slider arrows (Not only on hover).
+NEW: Add radius to buttons. [button radius="10px"]
+NEW: Google Fonts are now loaded with JS (Faster Page Loading).
+NEW: Updated to Flickity 2.0 on all sliders.
+NEW: Added parallax option to Slider.
+NEW: Added Height option to newsletter element.
+NEW: Catalog Mode products now has Variation select.
+NEW: Snapchat & 500px added to Follow Icons.
+NEW: Option to create Custom Maintenance page.
+NEW: Header Checkout element.
+NEW: Add 'Focus Point' to Banner Backgrounds.
+NEW: New button styles.
+NEW: New Form Style - Flat.
+NEW: Page Titles Control. Add Amazing Page Titles.
+NEW: New page options for footer. Simple / Transparent / Disabled.
+NEW: Replace footer with a custom Block.
+NEW: Option to center Absolute Footer.
+NEW: Video Element. Embed responsive YouTube videos etc.
+NEW: Optimisation options added to Advanced options.
+NEW: Enable / Disable lazy load of banners and section backgrounds.
+NEW: Added "Tutorials" tab to Flatsome Panel.
+NEW: Change global default page templates. (Can be overridden pr page).
+NEW: Change width of Product Image Gallery on product page.
+NEW: Option to change how many product pr row on Tablets.
+NEW: Option to Center content in Top Bar.
+NEW: Option to set custom Sale bubble text.
+NEW: Many new product image hover styles. Zoom, Zoom Fade, Blur ++.
+NEW: Option to use Default WooCommerce Zoom (PrettyPhoto) instead of Flatsome Lightbox.
+NEW: Option for Google+ login on Account.
+NEW: Improved My Account Page Template.
+NEW: Newsletter Header element.
+NEW: Add Blocks to header.
+NEW: Google Fonts are now loaded with JS (Faster Page Loading).
+NEW: Light Absolute Footer option.
+NEW: Setup Wizard for new installations.
+NEW: Option to add Payment Icons to footer.
+NEW: Blocks Widget added.
+NEW: Added parallax option to Slider.
+NEW: Count Up Number text option. 
+NEW: Fancy Underline text option.
+NEW: Icons for Titles.
+NEW: New layouts for Portfolio post type.
+NEW: Possible to set custom products in Product Flip Shortcode.
+NEW: Filter option for portfolio.
+NEW: New layouts for blog.
+NEW: Option to have different blog layout on archives.
+NEW: New Hotspot element for UX Banners.
+NEW: Video Icon for Images with Youtube links. Also opens video in a lightbox.
+NEW: Hundres of new options for all our shortcodes. Try them out in our new page builder.
+NEW: Lazy Loading of images.
+
+Changed: Full Product templates now uses shop sidebar as default if no product sidebar widgets are empty.
+Changed: Default included form plugin is now Contact Form 7, but Ninja Forms plugin is still supported.
+Changed: Featured Items is now called 'Portfolio'.
+Changed: Featured Box is now called Icon Box.
+Changed: No more IE8 support. (But should still be accessible)
+
+
+Updated: New Theme Screenshot.
+
+NEW: Many new page templates you can add to a blank page.
+FIXED: Bugs with extra product bubble.
+FIXED: Bugs with custom success color.
+FIXED: Possible to enable YouTube in follow icons.
+FIXED: Various CSS improvements.
+FIXED: Long dropdown links was not wrapping.
+FIXED: Could not grab google maps.
+FIXED: Bugs with Page Builder on SSL sites.
+FIXED: Easier to resize mobile columns.
+FIXED: Responsive grid heights.
+FIXED: Bugs with Masonery layouts.
+FIXED: Bugs with product lightbox slider.
+
+--- BETA 3.0.22 ---
+NEW: Added 'Drag' icon to Text Boxes in UX Builder.
+NEW: Added presets to the Products Shortcode.
+NEW: Added presets to Blog Post Shortcode.
+NEW: Added presets to category shortcode.
+NEW: Added presets to portfolio shortcode.
+NEW: 'Default' Product style now uses default Shop style settings.
+NEW: Snapchat added to Team Member element.
+NEW: Added presets to logo shortcode + new hover option.
+NEW: Icon styles added to Team member element.
+NEW: Presets added to Instagram element.
+NEW: Sticky Sections option. Create cool sticky sections when scrolling.
+
+FIXED: Show slider arrows on mobile screens. (like FL2.0)
+FIXED: Bugs with Tabs in the builder.
+FIXED: Accordion is not closed by default.
+FIXED: Bugs with Accordion.
+FIXED: Bugs with Product Flip book.
+FIXED: Auto height on product gallery. (For small and tall images).
+FIXED: PHP Syntax error from Kirki plugin.
+FIXED: Bugs with comments styling.
+FIXED: Added HTML after blog posts field.
+
+--- BETA 3.0.21 ---
+Changed: Moved the Mobile sidebar menu option to 'Header Sidebar / Mobile'.
+FIXED: Share / Meta went missing on product page if the option was not set.
+FIXED: Bugs with responsive banner texts.
+FIXED: Bugs with UX Gallery shortcode.
+FIXED: Custom class for columns now works.
+FIXED: Various bugs with the Portfolio Shortcode.
+FIXED: PHP errors in footer for old PHP versions.
+
+NEW: Class added for sections and banners.
+NEW: Added hover effects to banner borders.
+NEW: Added hover effects to Text Box.
+NEW: Option to change Video Button size.
+NEW: Change content position on maps.
+
+--- BETA 3.0.20 ---
+NEW: Option to remove the Header Divider in Main Header.
+NEW: Option to disable inline SVG on Icon Boxes.
+FIXED: Added Pinterest to header follow icons.
+FIXED: Bug with opening Widgets screen.
+FIXED: Better styling of Terms and Conditions text in checkout.
+FIXED: Categories and Meta was missing from Product Pages.
+FIXED: Various CSS bugs.
+
+--- BETA 3.0.19 ---
+FIXED: Styling for WooCommerce notices.
+FIXED: Login button was only an icon.
+FIXED: Various layout and CSS bugs reported.
+
+NEW: Option to replace payment icons with an image.
+NEW: Added iDeal to payment icons.
+
+--- BETA 3.0.18 ---
+NEW: Google Fonts are now loaded with JS (Faster Page Loading).
+NEW: Updated to Flickity 2.0 on all sliders.
+NEW: Added parallax option to Slider.
+NEW: Added Height option to newsletter element.
+NEW: Catalog Mode products now has Variation select.
+NEW: Snapchat & 500px added to Follow Icons.
+NEW: Light Absolute Footer option.
+NEW: Option to create Custom Maintenance page.
+NEW: Option to add Payment Icons to footer.
+NEW: Margins option added to Columns.
+NEW: Setup Wizard for new installations.
+NEW: New 'Label' style for various elements.
+NEW: Icon added to Coupon in cart.
+NEW: Option to create custom shop homepage content.
+NEW: Automatic Child Theme Creation on Installation.
+NEW: Effects added to Section.
+NEW: Option to disable / enable footer 1 and footer 2.
+NEW: Option to enable / disable top bar.
+NEW: Option to change slider arrow color to dark/light on various elements.
+NEW: Experimental Gradient button style.
+NEW: Blocks Widget added.
+NEW: Option to change icon colors on main header.
+
+UX Builder:
+NEW: Edit Blocks from Category pages (or any category/page).
+NEW: Admin label added to Sliders and Banners.
+NEW: Visibility option added to Sections and Sliders.
+NEW: Easier column resizing in  UX Builder.
+NEW: New hover effect. Fade out/in Overlay 50%.
+FIXED: Various bugs.
+
+FIXED: Custom ordering of categories.
+FIXED: 'Kirki Typo error' in error log.
+FIXED: Correct banner and section background image size is now beeing loaded.
+FIXED: Improved page speed (hopefully).
+FIXED: Option to add Social login to checkout.
+FIXED: Better Category Navigation styling.
+FIXED: Better Pagination styling.
+FIXED: Default/Normal grid style is now displayed normally.
+FIXED: Bugs with Parallax.
+FIXED: Better Sliding and scrolling on mobile.
+FIXED: Bugs with portfolio filtering.
+FIXED: Bug with vidoes in slider not playing.
+FIXED: Changing Lightbox background color did not work.
+
+--- BETA 3.0.17 ---
+NEW: Custom CSS from style.css file is now added inline.
+FIXED: Problems with Vertical product gallery and one image.
+FIXED: Google Maps now uses the API set in Advanced > Google APIs
+FIXED: Make sure first tab is always automatically opened on product pages.
+FIXED: Bug with HTTPS logos.
+FIXED: Dupliacted blog posts results.
+FIXED: Product Lightbox and Color variations.
+FIXED: Improved Parallax.
+FIXED: Various UX Builder bugs.
+
+--- BETA 3.0.16 ---
+NEW: Option to Lazy Load Images.
+NEW: More options for "Read more" button in Blog Posts.
+NEW: Option to change 'Excerpt length' on blog post shortcode.
+NEW: Added smart links to Button. 'shop' links to shop page. 'cart' links to cart page.
+NEW: Better Compatibility with WP Rocket plugin.
+
+Changed: Catalog Mode moved to Advanced options.
+
+FIXED: Secondary image on category pages was too big. (Used wrong image size).
+FIXED: Bugs with Page and post results.
+FIXED: Bug with portfolio items.
+FIXED: Bug with Search results & Category dropdown.
+FIXED: Better styling for Product Page Section style.
+FIXED: Improved and fixed bugs with Accordion.
+FIXED: Bugs with dupliacated header elements in the Header builder.
+FIXED: Various CSS bugs.
+FIXED: Problems with Tabs and no product description.
+FIXED: Problems with Catalog Mode and prices.
+FIXED: Improved "Getting Start" tab in Flatsome Panel.
+FIXED: Various Optimisation.
+FIXED: Bugs with vertical product page gallery and too many thumbnails.
+FIXED: Various Builder bugs.
+FIXED: Improved Portfolio layout & CSS.
+FIXED: My account icon when not logged in.
+FIXED: Wrong active class for menus on some pages.
+FIXED: Disable slider on related product if it's less than selected products pr row.
+
+--- BETA 3.0.15 ---
+NEW: Optimisation options added to Advanced options.
+NEW: Enable / Disable lazy load of banners and section backgrounds.
+NEW: Added default WooCommerce product shortcodes.
+NEW: Option to add scale share shortcode.
+NEW: "Pause on Hover" and "Draggable" added to slider options.
+NEW: Added "Tutorials" tab to Flatsome Panel. (Work in progress).
+FIXED: Accordion product tab style.
+FIXED: Disable Arrows for sliders.
+FIXED: Correct color helpers in Page Builder.
+FIXED: Wishlist is now added automatically to my account menu.
+FIXED: Outdated WooCommerce files.
+FIXED: Added extra class to product page price.
+FIXED: Possible to set background for boxed layout.
+FIXED: Custom CSS buttons in Theme Options.
+FIXED: Boxed layout drop-shadow.
+FIXED: Possible to select categories for blog posts.
+FIXED: Logo Shortcode height bug.
+FIXED: Clear responsive option tooltip.
+FIXED: Slide effects in Page Builder.
+FIXED: Various CSS improvements.
+FIXED: Mainenance logo bug.
+
+CHANGED: Improved Header builder design.
+CHANGED: Moved logo position option to Theme Options > Logo & Site Identity.
+--- BETA 3.0.14 ---
+NEW: Beautiful full width gallery product page layout.
+NEW: Added admin label to rows.
+NEW: Lazy load section and banner backgrounds.
+NEW: Added "Explore" template.
+NEW: Added "Clear content" button to settings in Page builder.
+
+FIXED: IE10 / IE11 / IE12 Support.
+FIXED: Banner links.
+FIXED: Bugs with Price table.
+FIXED: Various CSS bugs.
+FIXED: Various HTML errors.
+FIXED: Various JS errors.
+
+Updated: Full Product templates now uses shop sidebar as default if no product sidebar widgets are empty.
+Updated: Restructure of flatsome panel.
+
+--- BETA 3.0.13 ---
+NEW: Added page templates to UX Builder. Quickly add pre-made templates to new pages.
+NEW: Icons for Titles.
+
+FIXED: Showing license expired even if support is active.
+FIXED: Bugs with Text Box position on Banners.
+FIXED: Category grid shortcode was showing sub categories.
+FIXED: Various builder bugs.
+FIXED: Allow Search element in Text Box.
+FIXED: Possible to translate 'All'.
+FIXED: Various shortcode bugs.
+
+Updated: New Theme Screenshot.
+
+--- BETA 3.0.11 ---
+Improved: Made the Scroll to top button bigger.
+FIXED: Bugs with Login lightbox and messages.
+FIXED: Various JS Bugs.
+
+--- BETA 3.0.10 ---
+NEW: Delete and duplicate elements from sidebar in UX Builder.
+Changed: New default primary color for Flatsome 3.0.0
+NEW: New parallax script (Work in progress).
+
+Improved: Header builder layout.
+Improved: Various UX Builder improvements.
+Improved: 404 page.
+
+FIXED: Button styling bugs.
+FIXED: Various CSS glitches.
+FIXED: Banner hover effects.
+FIXED: Bugs with Mobile Nav icon.
+FIXED: Maintenance bugs.
+
+
+--- BETA 3.0.09 ---
+NEW: Video Element. Embed responsive YouTube videos etc.
+NEW: Enable / disable Theme plugins from Flatsome Panel.
+
+Changed: Removed line height option from Text Box. Can be added in the text editor instead in the 'Format' menu.
+Changed: Icon labels are now default primary color.
+
+Improved: RTL (Work in progress).
+
+FIXED: Possible to search posts and pages with ajax search.
+FIXED: Open and edit blocks from any page.
+FIXED: Bugs when duplicating shortcodes.
+FIXED: Focus point on Banners.
+FIXED: Filter button was default theme color.
+FIXED: Gallery thumbnails on product page (mobile).
+FIXED: Go back to admin if user came from admin and exits the builder.
+FIXED: Out of stock badge to product shortcode.
+FIXED: Loading spinner on sliders was too long.
+
+--- BETA 3.0.08 ---
+FIXED: Secondary color for underline buttons
+FIXED: Styling of search live results.
+FIXED: Large product gallery thumbnails.
+FIXED: Issues with star rating.
+
+--- BETA 3.0.07 ---
+FIXED: Improved Header Builder design.
+FIXED: Top bar background color if custom color is set.
+FIXED: Center align absolute footer.
+FIXED: Correct Theme Version in Flatsome Panel.
+FIXED: Scrollbar visible before slider is loaded.
+FIXED: Portfolio Image height can now be set.
+FIXED: Better placement of big dropdowns.
+FIXED: Banner background image in various browsers.
+FIXED: Possible to remove wishlist icon + fixed icon options.
+FIXED: Improved Instagram Widget styling.
+FIXED: Possible to set background image in Theme Options > Layout.
+FIXED: Better preloading of product sliders etc.
+FIXED: Update QTYs now works after Cart refresh.
+FIXED: Product Image Zoom now works.
+FIXED: Image get properly saved in the Theme Options panel.
+
+IMPROVED: Moved the Customizer reset to 'Advanced' location.
+
+NEW: Options to set margins top and bottom for Title element.
+NEW: Option to set font size on Title element.
+NEW: Input field for sliders in UX Builder.
+
+--- BETA 3.0.06 ---
+NEW: Experimental Visibility option for columns.
+
+FIXED: Builder Slider bugs.
+FIXED: 'Dashboard' link in My Account sidebar/dropdown.
+FIXED: Div cart css styling.
+FIXED: Div builder css improvements.
+
+--- BETA 3.0.04 ---
+FIXED: Too many images in Quick view gallery.
+FIXED: Make sure my account links works on other pages that my account page.
+FIXED: Opening draft with Page Builder.
+FIXED: Correct cart price and items when product is added with ajax.
+FIXED: Styling issues with vertical product gallery.
+FIXED: Share icons on Wishlist.
+
+--- BETA 3.0.03 ---
+FIXED: Option to disable/enable default WooCommerce account links.
+FIXED: Vertical Sub Nav page.
+
+--- BETA 3.0.02 ---
+NEW: Improved blog layout options.
+NEW: Added option to change "Contact" label in Contact element.
+NEW: Added option to change "Location" label in Contact element.
+Changed: Header buttons are divided into 'Button 1' and 'Button 2' header elements.
+
+FIXED: Left / Right page template.
+FIXED: Register text for login.
+FIXED: Content added with to pages in Excerpt. (Will be editable in page builder soon).
+FIXED: Out of stock badge.
+FIXED: Widget links styling.
+FIXED: Wishlist button on product page.
+FIXED: UX Builder Thumbnails when using child theme.
+FIXED: Sale bubbles for vertical product galleries.
+FIXED: Category pages off-canvas sidebar added to bottom after closing.
+FIXED: Images in Quick view sometimes not loading.
+FIXED: Add to cart button in grid.
+FIXED: Various bugs with Off-canvas cart.
+FIXED: 'HTML after header' added to Header options
+FIXED: 'Ola Nordmann' was added to Testimonials.
+FIXED: Old 'Background' shortcodes to work with builder.
+
+--- 2.9.6 ---
+NEW: German translation added.
+NEW: Swedish translations added.
+NEW: Possible to add Google Maps API. (Theme Options > Global settings).
+
+FIXED: Outdated WooCommerce Files for WooCommerce 2.6.3.
+FIXED: Account Menu Endpoint urls link to cart page.
+FIXED: Unable to select Country/Stat dropdown on mobile.
+FIXED: Scroll to top now animates correctly.
+FIXED: Possible to change QTY after cart refresh.
+
 --- 2.9.5.1 ---
 FIXED: Outdated WooCommerce 2.6.1 files.
 

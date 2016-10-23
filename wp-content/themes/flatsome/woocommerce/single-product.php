@@ -9,44 +9,29 @@
  * @version     1.6.4
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-global $flatsome_opt;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
-get_header('shop');
+get_header( 'shop' );
 
-do_action('flatsome_before_product_page'); ?>
+do_action('flatsome_before_product_page');
 
-<div class="row product-page">
-<div class="large-12 columns">
+?>
 
 	<?php
 		/**
 		 * woocommerce_before_main_content hook
 		 *
 		 * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+		 * @hooked woocommerce_breadcrumb - 20
 		 */
-		do_action('woocommerce_before_main_content');
+		do_action( 'woocommerce_before_main_content' );
 	?>
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php 
-			if($flatsome_opt['product_sidebar'] == "right_sidebar") {
-				woocommerce_get_template_part( 'content', 'single-product-rightcol'); 
-
-			} else if($flatsome_opt['product_sidebar'] == "right_sidebar_fullheight") {
-				woocommerce_get_template_part( 'content', 'single-product-rightcol-fullheight'); 
-
-				} else if($flatsome_opt['product_sidebar'] == "full_width") {
-				woocommerce_get_template_part( 'content', 'single-product-fullwidth'); 
-
-			} else if($flatsome_opt['product_sidebar'] == "left_sidebar") {
-				woocommerce_get_template_part( 'content', 'single-product-leftcol'); 
-
-			} else {
-				woocommerce_get_template_part( 'content', 'single-product' ); 
-			}
-		?>
+			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 
 		<?php endwhile; // end of the loop. ?>
 
@@ -56,15 +41,13 @@ do_action('flatsome_before_product_page'); ?>
 		 *
 		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 		 */
-		do_action('woocommerce_after_main_content');
+		do_action( 'woocommerce_after_main_content' );
 	?>
 
-
-</div><!-- end large-12 -->
-</div><!-- end row product-page -->
-
-<?php 
+<?php
 
 do_action('flatsome_after_product_page');
 
-get_footer('shop'); ?>
+get_footer( 'shop' );
+
+?>

@@ -1,69 +1,82 @@
- <?php
-	global $post, $product, $woocommerce;
-	$attachment_ids = $product->get_gallery_attachment_ids();
+<?php
 
-	// run quick view hooks
-	do_action('wc_quick_view_before_single_product');
-?> 
-           
-<div class="row collapse">
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
-<div class="large-7 columns">    
-     <div class="product-image images">
-				<div  class="product-gallery-slider ux-slider slider-nav-circle-hover slider-nav-small js-flickity" style="margin-bottom:0"
-				>
-				<?php if ( has_post_thumbnail() ) { ?>
-            	
-				<?php
-					//Get the Thumbnail URL
-					$src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), false, '' );
-					$src_small = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID),  apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ));
-					$src_title = get_post(get_post_thumbnail_id())->post_title;
-					
-				?>
-             
-                <div class="slide first">
-                	<img itemprop="image" src="<?php echo $src_small[0]; ?>" alt="<?php echo $src_title; ?>" title="<?php echo $src_title; ?>" />
-                </div>
-				
-				<?php } else { echo '<div class="slide"><img src="'.wc_placeholder_img_src().'" title="'.get_the_title().'" alt="'.get_the_title().'"/></div>';} ?>
-                
-				<?php
+global $post, $product, $woocommerce;
+$attachment_ids = $product->get_gallery_attachment_ids();
 
-					if ( $attachment_ids ) {
-				
-						$loop = 0;
-						$columns = apply_filters( 'woocommerce_product_thumbnails_columns', 3 );						
-						
-						foreach ( $attachment_ids as $attachment_id ) {
+// run quick view hooks
+do_action('wc_quick_view_before_single_product');
 
-							$src = wp_get_attachment_image_src( $attachment_id, false, '' );
-							$image = wp_get_attachment_image_src( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ) );
-							$image_small = wp_get_attachment_image_src( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_thumbnail' ) );
-							$image_title = esc_attr( get_the_title( $attachment_id ) );
-							?>
-							<div class="slide">
-            					<img src="<?php echo $image_small[0]; ?>" data-flickity-lazyload="<?php echo $image[0] ?>" alt="<?php echo $image_title ?>" title="<?php echo $image_title ?>" />
-           				 	</div>
-							<?php
-						}
-					}
-				?>
-		</div>
-        <?php if ( in_array( 'yith-woocommerce-wishlist/init.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) { ?>
-         	<?php echo do_shortcode('[yith_wcwl_add_to_wishlist]'); ?>
-        <?php } ?>
-</div><!-- end product-image -->
-</div><!-- large-6 -->
+?>
 
-<div class="large-5 columns">
-	<div class="product-lightbox-inner product-info">
-	<h1 itemprop="name" class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
-	<div class="tx-div small"></div>
-	<?php do_action( 'woocommerce_single_product_lightbox_summary' ); ?>
-	</div>
+<div class="product-quick-view-container">
+<div class="row row-collapse mb-0" itemscope itemtype="<?php echo woocommerce_get_product_schema(); ?>" id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+  <div class="product-gallery large-6 col">
+    <div class="slider product-gallery-slider main-images mb-0">
+      <?php
+        if ( has_post_thumbnail() ) {
+
+          $image_title = esc_attr( get_the_title( get_post_thumbnail_id() ) );
+          $image_link  = wp_get_attachment_url( get_post_thumbnail_id() );
+          $image       = get_the_post_thumbnail( $post->ID, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), array(
+            'title' => $image_title
+            ) );
+
+          $attachment_count = count( $product->get_gallery_attachment_ids() );
+
+          if ( $attachment_count > 0 ) {
+            $gallery = '[product-gallery]';
+          } else {
+            $gallery = '';
+          }
+          
+          echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<div class="slide first">%s</div>', $image ), $post->ID );
+
+          // additional
+          $attachment_ids =  $product->get_gallery_attachment_ids();
+          if ( $attachment_ids ) { 
+              $loop = 0;
+              $columns = apply_filters( 'woocommerce_product_thumbnails_columns', 3 );                        
+              
+              foreach ( $attachment_ids as $attachment_id ) {
+                  $image_title  = esc_attr( get_the_title( $attachment_id ) );
+                  $image =  wp_get_attachment_image( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ), array('title' => $image_title,'alt' => $image_title) );
+                  echo apply_filters( 'woocommerce_single_product_image_html',sprintf( '<div class="slide">%s</div>', $image ), $attachment_id);
+              }
+          }
+
+        } else {
+
+          echo apply_filters( 'woocommerce_single_product_image_html', sprintf( '<img src="%s" alt="%s" />', wc_placeholder_img_src(), __( 'Placeholder', 'woocommerce' ) ), $post->ID );
+
+        }
+    ?> 
+  </div><!-- product gallery slider -->
+
+
+  <?php
+    do_action( 'woocommerce_before_single_product_lightbox_summary' );
+  ?>
+  </div>
+
+  <div class="product-info summary large-6  col entry-summary" style="font-size:90%;">
+    <div class="product-lightbox-inner" style="padding: 30px;">
+    <a class="plain" href="<?php echo the_permalink();?>"><h1><?php the_title(); ?></h1></a>
+    <div class="is-divider small"></div>
+    
+    <?php
+      do_action( 'woocommerce_single_product_lightbox_summary' );
+    ?>
+
+    </div>
+  </div><!-- .summary -->
+
+</div><!-- #product-<?php the_ID(); ?> -->
+</div><!-- product-container -->
 </div>
-
-</div><!-- .row -->
 
 <?php do_action('wc_quick_view_after_single_product'); ?>

@@ -6,146 +6,87 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version 	2.6.1
+ * @version     2.6.1
  */
-
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-global $product, $woocommerce_loop, $flatsome_opt;
+global $product, $woocommerce_loop;
 
+// Store loop count we're currently on
+if ( empty( $woocommerce_loop['loop'] ) )
+	$woocommerce_loop['loop'] = 0;
+
+// Store column count for displaying the grid
+if ( empty( $woocommerce_loop['columns'] ) )
+	$woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
 
 // Ensure visibility
-if ( empty( $product ) || ! $product->is_visible() ) {
+if ( ! $product || ! $product->is_visible() )
 	return;
-}
 
-// Get avability
-$post_id = $post->ID;
-$stock_status = get_post_meta($post_id, '_stock_status',true) == 'outofstock';
+// Check stock status
+$out_of_stock = get_post_meta($post->ID, '_stock_status',true) == 'outofstock';
 
-// run add to cart variation script
-if($product->is_type( array( 'variable', 'grouped') )) wp_enqueue_script('wc-add-to-cart-variation');
+// Extra post classes
+$classes = array();
+$classes[] = 'product-small';
+$classes[] = 'col';
+$classes[] = 'has-hover';
+
+if($out_of_stock) $classes[] = 'out-of-stock';
 
 ?>
 
-<li class="product-small <?php if($stock_status == "1") { ?>out-of-stock<?php }?> <?php echo $flatsome_opt['grid_style']; ?> grid-<?php echo $flatsome_opt['grid_frame']; ?>">
-<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
-<div class="inner-wrap">
-<a href="<?php the_permalink(); ?>">
-      <div class="product-image hover_<?php echo $flatsome_opt['product_hover']; ?>">
-      	<?php if ( has_post_thumbnail()){ ?>
-         <div class="front-image"><?php echo get_the_post_thumbnail( $post->ID, 'shop_catalog') ?></div>
-		<?php if($flatsome_opt['product_hover'] != "none" ) { ?>
-		<?php
-			// Get back image
-			$attachment_ids = $product->get_gallery_attachment_ids();
-			if ( $attachment_ids ) {
-				$loop = 0;				
-				foreach ( $attachment_ids as $attachment_id ) {
-					$image_link = wp_get_attachment_url( $attachment_id );
-					if ( ! $image_link )
-						continue;
-					$loop++;
-					printf( '<div class="back-image back">%s</div>', wp_get_attachment_image( $attachment_id, 'shop_catalog' ) );
-					if ($loop == 1) break;
-				}
-			}
-		?>
-		<?php } ?>
-		<?php } else { echo '<img src="'.wc_placeholder_img_src().'"/>';} ?>
+<div <?php post_class( $classes ); ?>>
+	<div class="col-inner">	
+	<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
+	<div class="product-small box <?php echo flatsome_product_box_class(); ?>">
+		<div class="box-image">
+			<div class="<?php echo flatsome_product_box_image_class(); ?>">
+				<a href="<?php echo get_the_permalink(); ?>">
+					<?php
+						/**
+						 *
+						 * @hooked woocommerce_get_alt_product_thumbnail - 11
+						 * @hooked woocommerce_template_loop_product_thumbnail - 10
+						 */
+						do_action( 'flatsome_woocommerce_shop_loop_images' );
+					?>
+				</a>
+			</div>
+			<div class="image-tools is-small top right show-on-hover">
+				<?php do_action('flatsome_product_box_tools_top'); ?>
+			</div>
+			<div class="image-tools is-small hide-for-small bottom left show-on-hover">
+				<?php do_action('flatsome_product_box_tools_bottom'); ?>
+			</div>
+			<div class="image-tools <?php echo flatsome_product_box_actions_class(); ?>">
+				<?php  do_action('flatsome_product_box_actions'); ?>
+			</div>
+			<?php if($out_of_stock) { ?><div class="out-of-stock-label"><?php _e( 'Out of stock', 'woocommerce' ); ?></div><?php }?>
+		</div><!-- box-image -->
 
-		 <?php if(!$flatsome_opt['disable_quick_view']){ ?>
-          <div class="quick-view" data-prod="<?php echo $post->ID; ?>"><?php _e('Quick View','flatsome'); ?></div>
-	   	 <?php } ?>
+		<div class="box-text <?php echo flatsome_product_box_text_class(); ?>">
+			<?php
+				do_action( 'woocommerce_before_shop_loop_item_title' );
 
-	   	<?php if($stock_status == "1") { ?><div class="out-of-stock-label"><?php _e( 'Out of stock', 'woocommerce' ); ?></div><?php }?>
-		
-		<?php if($flatsome_opt['add_to_cart_icon'] == "show") {
-				echo apply_filters( 'woocommerce_loop_add_to_cart_link',
-					sprintf( '<a rel="nofollow" href="%s" data-quantity="%s" data-product_id="%s" data-product_sku="%s" class="%s %s add-to-cart-grid clearfix">
-						<div class="cart-icon tip-top" title="%s"> <strong> <span class="icon-inner"></span></strong><span class="cart-icon-handle"></span></div></a>',
-						esc_url( $product->add_to_cart_url() ),
-						esc_attr( isset( $quantity ) ? $quantity : 1 ),
-						esc_attr( $product->id ),
-						esc_attr( $product->get_sku() ),
-						esc_attr( $product->is_type( 'variable' ) ? '' : 'ajax_add_to_cart'),
-						esc_attr( isset( $class ) ? $class : 'add_to_cart_button' ),
-						esc_html( $product->add_to_cart_text() )
-					),
-				$product );
-		?>
-		<?php } ?>
-      </div><!-- end product-image -->
-</a>      	
+				echo '<div class="title-wrapper">';
+				do_action( 'woocommerce_shop_loop_item_title' );
+				echo '</div>';
 
-    <div class="info style-<?php echo $flatsome_opt['grid_style']; ?>">
 
-	<?php 
-	// GRID STYLE 1
-	if(!isset($flatsome_opt['grid_style']) || $flatsome_opt['grid_style'] == "grid1"){ ?>
+				echo '<div class="price-wrapper">';
+				do_action( 'woocommerce_after_shop_loop_item_title' );
+				echo '</div>';
 
-      <div class="text-center">
-      	   <?php do_action('woocommerce_before_shop_loop_item_title'); ?>
-           <p class="category">
-          		<?php 
-          			$products_cats = $product->get_categories();
-          			if($products_cats){
-	  				     list($firstpart) = explode(',', $products_cats);
-	       				 echo $firstpart;
-          			}
-                  ?>
-          </p>
-          <div class="tx-div small"></div>
-          <a href="<?php the_permalink(); ?>"><p class="name"><?php the_title(); ?></p></a>
-          <?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
-      </div><!-- text-center -->
+				do_action( 'flatsome_product_box_after' );
 
-     <?php } 
-     // GRID STYLE 2
-     else if($flatsome_opt['grid_style'] == "grid2") { ?> 
-          <?php do_action('woocommerce_before_shop_loop_item_title'); ?>
-          <a href="<?php the_permalink(); ?>"><p class="name"><?php the_title(); ?></p></a>
-          <?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
-     
-
-     <?php }
-     // GRID STYLE 3
-     else if($flatsome_opt['grid_style'] == "grid3") { ?> 
-	    <table>
-			<tr>
-				<td>
-				<?php do_action('woocommerce_before_shop_loop_item_title'); ?>
-			  <?php $product_cats = strip_tags($product->get_categories('|', '', '')); ?>
-          	  <a href="<?php the_permalink(); ?>">
-          	 	 <p class="name"><?php the_title(); ?></p>
-          	  </a>
-	          <p class="category"><?php
-	          		if($product_cats){
-	  				     list($firstpart) = explode(',', $product_cats);
-	       				 echo $firstpart;
-          			} ?>
-          	   </p>
-	           </td>
-				<td><?php do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
-				</td>
-			</tr>
-		 </table>
-	<?php } // ?>
-		
-	<?php // Global list ?>
-
-	<?php 
-		if(shortcode_exists( 'yith_wcwl_add_to_wishlist' ) ) {
-			// Show wishlist
-			echo do_shortcode('[yith_wcwl_add_to_wishlist]'); 
-		}
-	?>
-	</div><!-- end info -->	
-
-</div> <!-- .inner-wrap -->
-<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
-
-</li><!-- li.product-small -->
+			?>
+		</div><!-- box-text -->
+	</div><!-- box -->
+	<?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
+	</div><!-- .col-inner -->
+</div><!-- col -->

@@ -1,23 +1,37 @@
 <?php
 // [map]
-function shortcode_map($atts, $content=null, $code) {
-
-    $mapsrandomid = rand();
+function flatsome_shortcode_map($atts, $content=null, $code) {
+  
 	extract(shortcode_atts(array(
-		'lat'  => '',
-    'long' => '',
+    '_id' => 'map-'.rand(),
+		'lat'  => '40.79028',
+    'long' => '-73.95972',
     'height' => '400px',
 		'color' => '#58728a',
+    'margin' => '',
+    'position_x' => '95',
+    'position_y' => '95',
+    'content_enable' => 'true',
+    'content_bg' => '#fff',
+    'content_width' => '30',
+    'content_width__sm' => '',
+    'content_width__md' => '',
+    'saturation' => '-30',
     'zoom' => '17',
     'controls' => 'false',
-    'pan' => 'false',
+    'zoom_control' => 'true',
+    'street_view_control' => 'true',
+    'map_type_control' => 'true',
+    'pan' => 'true',
 	), $atts));
+
+  wp_enqueue_script('flatsome-maps');
+
 	ob_start();
-	?> 
-    
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	?>
+
 	<script type="text/javascript">
-    
+  jQuery( document ).ready(function() {
     function initialize() {
         var styles = {
             'flatsome':  [{
@@ -37,11 +51,11 @@ function shortcode_map($atts, $content=null, $code) {
             "stylers": [
 			  { "visibility": "on" },
 			  { "hue": "<?php echo $color ?>" },
-			  { "saturation": -30 }
+			  { "saturation": <?php echo $saturation; ?> }
             ]
           }
         ]};
-        
+
         var myLatlng = new google.maps.LatLng(<?php echo $lat ?>, <?php echo $long ?>);
         var myOptions = {
             zoom: <?php echo $zoom ?>,
@@ -49,48 +63,80 @@ function shortcode_map($atts, $content=null, $code) {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
             mapTypeId: 'flatsome',
-            draggable: true,
-            zoomControl: false,
-      			panControl: false,
-      			mapTypeControl: false,
-      			scaleControl: false,
-      			streetViewControl: false,
-      			overviewMapControl: false,
+            draggable: <?php echo $pan; ?>,
+            zoomControl: <?php echo $controls == 'true' && $zoom_control == 'true' ? 'true' : 'false'; ?>,
+            zoomControlOptions: {
+              position: google.maps.ControlPosition.TOP_LEFT
+            },
+      			// panControl: <?php echo $controls; ?>,
+            // panControlOptions: {
+            //   position: google.maps.ControlPosition.TOP_LEFT
+            // },
+      			mapTypeControl: <?php echo $controls == 'true' && $map_type_control == 'true' ? 'true' : 'false'; ?>,
+            mapTypeControlOptions: {
+              position: google.maps.ControlPosition.TOP_LEFT
+            },
+      			// scaleControl: <?php echo $controls; ?>,
+            // scaleControlOptions: {
+            //   position: google.maps.ControlPosition.TOP_LEFT
+            // },
+      			streetViewControl: <?php echo $controls == 'true' && $street_view_control == 'true' ? 'true' : 'false'; ?>,
+            streetViewControlOptions: {
+              position: google.maps.ControlPosition.TOP_LEFT
+            },
+      			// overviewMapControl: <?php echo $controls; ?>,
+            // overviewMapControlOptions: {
+            //   position: google.maps.ControlPosition.TOP_LEFT
+            // },
             scrollwheel: false,
             disableDoubleClickZoom: true
         }
-        var map = new google.maps.Map(document.getElementById("<?php echo $mapsrandomid; ?>"), myOptions);
+        var map = new google.maps.Map(document.getElementById("<?php echo $_id; ?>-inner"), myOptions);
         var styledMapType = new google.maps.StyledMapType(styles['flatsome'], {name: 'flatsome'});
         map.mapTypes.set('flatsome', styledMapType);
-        
+
         var marker = new google.maps.Marker({
-            position: myLatlng, 
+            position: myLatlng,
             map: map,
             title:""
-        });   
+        });
     }
-    
+
     google.maps.event.addDomListener(window, 'load', initialize);
     google.maps.event.addDomListener(window, 'resize', initialize);
-    
+    });
     </script>
-    
-    <div id="map_container">
-        <div id="<?php echo $mapsrandomid; ?>" style="height:<?php echo $height ?>;"></div>
+
+    <div class="google-map relative mb" id="<?php echo $_id; ?>">
+        <div class="map-height" id="<?php echo $_id; ?>-inner"></div>
         <div id="map_overlay_top"></div>
         <div id="map_overlay_bottom"></div>
-         <?php if($content) {?>
-         <div class="map-info">
-            <div class="row">
-            <div class="large-4 columns right">
-                <div class="map_inner">
-                <?php echo fixShortcode($content); ?>
-              </div> <!-- map_inner -->
-            </div><!-- large-4 -->
-             </div><!-- row -->
-        </div><!-- .map-info -->
+         <?php if($content_enable) {?>
+         <div class="map_inner map-inner last-reset absolute x<?php echo $position_x; ?> y<?php echo $position_y; ?>">
+              <?php echo flatsome_contentfix($content); ?>
+         </div>
        <?php }?>
-    </div>
+
+       <?php
+        // Get custom CSS
+        $args = array(
+            'content_bg' => array(
+              'selector' => '.map-inner',
+              'property' => 'background-color',
+            ),
+            'content_width' => array(
+              'selector' => '.map-inner',
+              'property' => 'max-width',
+              'unit' => '%'
+            ),
+            'height' => array(
+              'selector' => '.map-height',
+              'property' => 'height',
+            )
+          );
+          echo ux_builder_element_style_tag($_id, $args, $atts);
+        ?>
+    </div><!-- .map -->
 
 	<?php
 	$content = ob_get_contents();
@@ -98,4 +144,4 @@ function shortcode_map($atts, $content=null, $code) {
 	return $content;
 }
 
-add_shortcode('map', 'shortcode_map');
+add_shortcode('map', 'flatsome_shortcode_map');
