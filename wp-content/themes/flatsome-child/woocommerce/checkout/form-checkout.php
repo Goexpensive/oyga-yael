@@ -24,14 +24,14 @@ if ( ! $checkout->enable_signup && ! $checkout->enable_guest_checkout && ! is_us
 // filter hook for include new pages inside the payment method
 $get_checkout_url = apply_filters( 'woocommerce_get_checkout_url', WC()->cart->get_checkout_url() ); ?>
 
-<?php 
+<?php
 // Social login
 if(flatsome_option('facebook_login_checkout') && get_option('woocommerce_enable_myaccount_registration')=='yes' && !is_user_logged_in()){
 	woocommerce_get_template('checkout/social-login.php');
 } ?>
- 
+
 <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url( $get_checkout_url ); ?>" enctype="multipart/form-data">
-		
+
 	<div class="row pt-0">
 	<div class="large-7 col">
 	<?php if ( sizeof( $checkout->checkout_fields ) > 0 ) : ?>
@@ -44,7 +44,9 @@ if(flatsome_option('facebook_login_checkout') && get_option('woocommerce_enable_
 			</div>
 
 			<div>
-				<?php do_action( 'woocommerce_checkout_shipping' ); ?>
+				<h3>Información adicional</h3>
+				<p>Utilizamos MercadoEnvíos para hacer todas nuestras entregas. Podes enviarlo a tu domicilio o a la sucursal de correo que te sea más conveniente. También podes retirarlo por nuestra oficina en Chacarita.</p>
+				<p>Vas a poder ingresar toda la información del envío en el siguiente paso, dentro de MercadoPago</p>
 			</div>
 		</div>
 
@@ -58,7 +60,7 @@ if(flatsome_option('facebook_login_checkout') && get_option('woocommerce_enable_
 			<div class="checkout-sidebar has-border sm-touch-scroll">
 				<h3 id="order_review_heading"><?php _e( 'Your order', 'woocommerce' ); ?></h3>
 				<?php do_action( 'woocommerce_checkout_before_order_review' ); ?>
-		
+
 				<div id="order_review" class="woocommerce-checkout-review-order">
 					<?php do_action( 'woocommerce_checkout_order_review' ); ?>
 				</div>
@@ -66,7 +68,7 @@ if(flatsome_option('facebook_login_checkout') && get_option('woocommerce_enable_
 			</div>
 		</div>
 	</div><!-- large-5 -->
-	
+
 	</div><!-- row -->
 </form>
 
