@@ -723,7 +723,15 @@ class WC_WooMercadoPago_Gateway extends WC_Payment_Gateway {
 			//'marketplace' =>
 	  	//'marketplace_fee' =>
 	  	'shipments' => array(
-				//'cost' =>
+	        'mode' => 'me2',
+	        'dimensions' => '30x30x30,500',
+	        'free_methods' => [
+	            [
+	                'id' => 73328
+	            ]
+	        ],
+	        'local_pickup' => true,
+			//'cost' =>
 				//'mode' =>
 	  		'receiver_address' => array(
 	  			'zip_code' => $order->shipping_postcode,
